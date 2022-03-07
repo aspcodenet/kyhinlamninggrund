@@ -15,6 +15,8 @@ const editName =  document.getElementById('editName')
 const editColor = document.getElementById('editColor')
 const editPrice = document.getElementById('editPrice')
 
+const submitEditButton = document.getElementById('submitEditButton')
+
 
 //Vi fortsätter från 
 // https://github.com/aspcodenet/kyhinlamninggrund
@@ -80,7 +82,9 @@ listLink.addEventListener("click",()=>{
     showSection('sectionList');    
 });
 
-
+// 1. finns inte alls nån max. Finns dock en som heter Stefan som är förvirrad ;)
+// 2. Edit 
+//
 submitNewButton.addEventListener("click",()=>{ 
     let highestId = 0;
     items.forEach( (item) => {
@@ -94,7 +98,20 @@ submitNewButton.addEventListener("click",()=>{
     console.log(prod)
 });
 
-let editingProduct = null
+submitEditButton.addEventListener("click",()=>{
+    editingProduct.name = editName.value;
+    editingProduct.price = editPrice.value;
+    editingProduct.color = editColor.value;
+
+    productTableBody.innerHTML = '';
+    items.forEach( (item) => {
+        renderTr(item);
+    }  );
+    
+    showSection('sectionList');    
+});
+
+let editingProduct = null;
 
 function editProduct(id){
     editingProduct = items.find((item)=>item.id == id)
@@ -103,6 +120,8 @@ function editProduct(id){
     editColor.value = editingProduct.color;
     showSection('sectionEdit');    
 }
+
+
 
 
 function renderTr(product){
