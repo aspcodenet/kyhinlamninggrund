@@ -4,12 +4,17 @@ const sectionNew = document.getElementById('sectionNew')
 const sectionEdit = document.getElementById('sectionEdit')
 const productTableBody = document.getElementById('productTableBody')
 const submitNewButton = document.getElementById('submitNewButton')
-const newName =  document.getElementById('newName')
-
 const listLink = document.getElementById('listLink')
 const newLink = document.getElementById('newLink')
+
+const newName =  document.getElementById('newName')
 const newColor = document.getElementById('newColor')
 const newPrice = document.getElementById('newPrice')
+
+const editName =  document.getElementById('editName')
+const editColor = document.getElementById('editColor')
+const editPrice = document.getElementById('editPrice')
+
 
 //Vi fortsätter från 
 // https://github.com/aspcodenet/kyhinlamninggrund
@@ -89,17 +94,26 @@ submitNewButton.addEventListener("click",()=>{
     console.log(prod)
 });
 
-function editProduct(product){
+let editingProduct = null
+
+function editProduct(id){
+    editingProduct = items.find((item)=>item.id == id)
+    editName.value = editingProduct.name;
+    editPrice.value = editingProduct.price;
+    editColor.value = editingProduct.color;
     showSection('sectionEdit');    
 }
 
 
 function renderTr(product){
+    let jsCall = `editProduct(${product.id})`;
+    // jsCall = editProduct(18)
+    // jsCall = editProduct(19)
     let template = `<tr>
                         <td>${product.name}</td>
                         <td>${product.price}</td>
                         <td>${product.color}</td>
-                        <td>Här ska en editlänk finnas!!!</td>
+                        <td><a href="#" onclick="${jsCall}">EDIT</td>
                     </tr>`
     productTableBody.innerHTML = productTableBody.innerHTML + template;
 } 
