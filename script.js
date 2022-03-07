@@ -8,6 +8,8 @@ const newName =  document.getElementById('newName')
 
 const listLink = document.getElementById('listLink')
 const newLink = document.getElementById('newLink')
+const newColor = document.getElementById('newColor')
+const newPrice = document.getElementById('newPrice')
 
 //Vi fortsätter från 
 // https://github.com/aspcodenet/kyhinlamninggrund
@@ -70,9 +72,16 @@ newLink.addEventListener("click",()=>{
 
 
 submitNewButton.addEventListener("click",()=>{ 
-    items.push(newName.value);
-    renderTr(newName.value);
+    let highestId = 0;
+    items.forEach( (item) => {
+        if(item.id >  highestId)
+            highestId = item.id;
+    }  );
+    const prod = new Product(highestId+1, newName.value,newPrice.value, newColor.value)
+    items.push(prod); 
+    renderTr(prod);
     showSection('sectionList');    
+    console.log(prod)
 });
 
 
