@@ -60,13 +60,18 @@ function showSection(sectionsId){
         sectionNew.style.display = "block";
         sectionEdit.style.display = "none";
     }
+    else if(sectionsId == 'sectionEdit'){
+        sectionList.style.display = "none";
+        sectionNew.style.display = "none";
+        sectionEdit.style.display = "block";
+    }
 }
 
 newLink.addEventListener("click",()=>{ 
         showSection('sectionNew');    
   });
 
-  listLink.addEventListener("click",()=>{ 
+listLink.addEventListener("click",()=>{ 
     showSection('sectionList');    
 });
 
@@ -83,6 +88,10 @@ submitNewButton.addEventListener("click",()=>{
     showSection('sectionList');    
     console.log(prod)
 });
+
+function editProduct(product){
+    showSection('sectionEdit');    
+}
 
 
 function renderTr(product){
