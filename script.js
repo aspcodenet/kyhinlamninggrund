@@ -9,6 +9,44 @@ const newName =  document.getElementById('newName')
 const listLink = document.getElementById('listLink')
 const newLink = document.getElementById('newLink')
 
+//Vi fortsätter från 
+// https://github.com/aspcodenet/kyhinlamninggrund
+
+//1. OOP - class Product id, name, price, color
+//2. in i items och rendera
+//3. Vi fixar NEW
+//4. Vi fixar edit
+
+class Product{
+    constructor(id,name,price,color){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.color = color;
+   }
+}
+
+
+// const prod = new Product(1,"Banan",12,"Gul")
+// console.log(prod)
+
+// prod.Stad = "Colorado"
+// console.log(prod)
+
+// let namn = "Stefan"
+
+
+// console.log({namn})
+// let id = 129
+// console.log({id})
+
+// console.log("Klar")
+
+
+
+
+
+
 function showSection(sectionsId){
     if(sectionsId == 'sectionList'){
         sectionList.style.display = "block";
@@ -38,12 +76,17 @@ submitNewButton.addEventListener("click",()=>{
 });
 
 
-function renderTr(item){
-    let template = `<tr><td>${item}</td></tr>`
+function renderTr(product){
+    let template = `<tr>
+                        <td>${product.name}</td>
+                        <td>${product.price}</td>
+                        <td>${product.color}</td>
+                        <td>Här ska en editlänk finnas!!!</td>
+                    </tr>`
     productTableBody.innerHTML = productTableBody.innerHTML + template;
 } 
 // 
-items = ["Stefan", "Kalle", "Lisa" ] ;
+items = [ new Product(1,"Mugg",12,"Vit"), new Product(2,"Glasögon",20,"Bruna"), new Product(3,"Pepsi Max",5,"Svart")   ] ;
 items.forEach( (item) => {
     renderTr(item);
 }  );
