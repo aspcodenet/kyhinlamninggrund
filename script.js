@@ -151,6 +151,15 @@ function renderTr(product){
 // 
 
 function refreshItems(){
+
+    // fetch('https://hockeyplayers.systementor.se/stefan/player')
+    // .then(response=>response.json())
+    // .then(array=>{
+    //     //json -> items
+    //     console.log(array)
+    // });
+
+
     fetch(baseApi)
         .then(response=>response.json())
         .then(array=>{
