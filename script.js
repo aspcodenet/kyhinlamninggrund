@@ -17,6 +17,7 @@ const editPrice = document.getElementById('editPrice')
 
 const submitEditButton = document.getElementById('submitEditButton')
 
+
 //Todo ändra stefan till er egen - dvs {useremail}
 //const baseApi = 'https://hockeyplayers.systementor.se/stefan/player'
 const baseApi = 'https://fakestoreapi.com/products' 
@@ -29,6 +30,16 @@ const baseApi = 'https://fakestoreapi.com/products'
 // HTTP PUT Uppdatera en befintlig https://fakestoreapi.com/products/4 
 //                          - Skicka in nya properties som JSON
 
+
+const search = document.getElementById('search')
+search.addEventListener("keyup", ()=>{
+    let filteredList =  items.filter(item=> item.name.includes( search.value ) );
+    productTableBody.innerHTML = '';
+    filteredList.forEach( (item) => {
+        renderTr(item);
+    });
+
+})
 
 //Vi fortsätter från 
 // https://github.com/aspcodenet/kyhinlamninggrund
@@ -108,6 +119,9 @@ submitNewButton.addEventListener("click",()=>{
     };
 
     const reqParams = {
+        headers:{
+            'Content-Type': 'application/json'
+        },       
         method:"POST",
         body:JSON.stringify(newProcduct)
     };
@@ -147,8 +161,8 @@ submitEditButton.addEventListener("click",()=>{
 
 
     fetch(baseApi + '/' + editingProduct.id ,reqParams)
-        .then(res=>res.json())
-        .then(json=>{
+//        .then(res=>res.json())
+        .then(response=>{
             refreshItems();
             showSection('sectionList');    
         });
