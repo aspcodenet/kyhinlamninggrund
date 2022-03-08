@@ -17,6 +17,18 @@ const editPrice = document.getElementById('editPrice')
 
 const submitEditButton = document.getElementById('submitEditButton')
 
+//Todo ändra stefan till er egen - dvs {useremail}
+//const baseApi = 'https://hockeyplayers.systementor.se/stefan/player'
+const baseApi = 'https://fakestoreapi.com/products' 
+// HTTP GET  Lista alla https://fakestoreapi.com/products
+// HTTP GET  Lista en https://fakestoreapi.com/products/4
+
+// HTTP POST Skapa en ny https://fakestoreapi.com/products 
+//                          - Skicka in ny product som JSON
+
+// HTTP PUT Uppdatera en befintlig https://fakestoreapi.com/products/4 
+//                          - Skicka in nya properties som JSON
+
 
 //Vi fortsätter från 
 // https://github.com/aspcodenet/kyhinlamninggrund
@@ -137,10 +149,24 @@ function renderTr(product){
     productTableBody.innerHTML = productTableBody.innerHTML + template;
 } 
 // 
-items = [ new Product(1,"Mugg",12,"Vit"), new Product(2,"Glasögon",20,"Bruna"), new Product(3,"Pepsi Max",5,"Svart")   ] ;
-items.forEach( (item) => {
-    renderTr(item);
-}  );
+
+function refreshItems(){
+    fetch(baseApi)
+        .then(response=>response.json())
+        .then(jsonText=>{
+            //json -> items
+            console.log(jsonText)
+
+
+            items.forEach( (item) => {
+                renderTr(item);
+            });
+    })
+
+}
+
+items = [];
+refreshItems();
 
 
 //Loopa den
