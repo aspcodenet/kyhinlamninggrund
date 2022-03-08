@@ -153,9 +153,16 @@ function renderTr(product){
 function refreshItems(){
     fetch(baseApi)
         .then(response=>response.json())
-        .then(jsonText=>{
+        .then(array=>{
             //json -> items
-            console.log(jsonText)
+            console.log(array)
+            array.forEach(prod=>{
+                p = new Product(prod.id,
+                    prod.title,
+                    prod.price,
+                    prod.category)                    
+                items.push(p)
+            });
 
 
             items.forEach( (item) => {
