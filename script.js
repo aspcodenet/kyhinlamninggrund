@@ -136,6 +136,9 @@ submitEditButton.addEventListener("click",()=>{
         category: editColor.value
     };
     const reqParams = {
+        headers:{
+            'Content-Type': 'application/json'
+        },       
         method:"PUT",
         body:JSON.stringify(changedProductValues)
     };
