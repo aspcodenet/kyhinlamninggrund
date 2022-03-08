@@ -98,29 +98,57 @@ listLink.addEventListener("click",()=>{
 // 2. Edit 
 //
 submitNewButton.addEventListener("click",()=>{ 
-    let highestId = 0;
-    items.forEach( (item) => {
-        if(item.id >  highestId)
-            highestId = item.id;
-    }  );
-    const prod = new Product(highestId+1, newName.value,newPrice.value, newColor.value)
-    items.push(prod); 
-    renderTr(prod);
-    showSection('sectionList');    
-    console.log(prod)
+
+    const newProcduct = {
+        title: newName.value,
+        price: newPrice.value,
+        description: 'lorem ipsum set',
+        image: 'https://i.pravatar.cc',
+        category: newColor.value
+    };
+
+    const reqParams = {
+        method:"POST",
+        body:JSON.stringify(newProcduct)
+    };
+    fetch(baseApi,reqParams)
+        .then(res=>res.json())
+        .then(json=>{
+            const prod = new Product(
+                json.id,
+                newName.value,
+                newPrice.value, 
+                newColor.value)
+
+            items.push(prod); 
+            renderTr(prod);
+            showSection('sectionList');    
+        })
 });
 
 submitEditButton.addEventListener("click",()=>{
-    editingProduct.name = editName.value;
-    editingProduct.price = editPrice.value;
-    editingProduct.color = editColor.value;
 
-    productTableBody.innerHTML = '';
-    items.forEach( (item) => {
-        renderTr(item);
-    }  );
-    
-    showSection('sectionList');    
+    const changedProductValues = {
+        title: editName.value,
+        price: editPrice.value,
+        description: 'lorem ipsum set',
+        image: 'https://i.pravatar.cc',
+        category: editColor.value
+    };
+    const reqParams = {
+        method:"PUT",
+        body:JSON.stringify(changedProductValues)
+    };
+
+    // 'https://fakestoreapi.com/products/7
+
+
+    fetch(baseApi + '/' + editingProduct.id ,reqParams)
+        .then(res=>res.json())
+        .then(json=>{
+            refreshItems();
+            showSection('sectionList');    
+        });
 });
 
 let editingProduct = null;
@@ -159,6 +187,8 @@ function refreshItems(){
     //     console.log(array)
     // });
 
+    items = [];
+    productTableBody.innerHTML = '';
 
     fetch(baseApi)
         .then(response=>response.json())
@@ -172,8 +202,6 @@ function refreshItems(){
                     prod.category)                    
                 items.push(p)
             });
-
-
             items.forEach( (item) => {
                 renderTr(item);
             });
