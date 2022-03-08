@@ -33,7 +33,11 @@ const baseApi = 'https://fakestoreapi.com/products'
 
 const search = document.getElementById('search')
 search.addEventListener("keyup", ()=>{
-    let filteredList =  items.filter(item=> item.name.includes( search.value ) );
+    const lowercase = search.value.toLowerCase()
+
+    const filteredList =  items.filter(item=> item.name.toLowerCase()
+            .includes( lowercase ) );
+
     productTableBody.innerHTML = '';
     filteredList.forEach( (item) => {
         renderTr(item);
@@ -226,7 +230,7 @@ function refreshItems(){
 
 }
 
-items = [];
+let items = [];
 refreshItems();
 
 
